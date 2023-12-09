@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const optionSetSchema = new Schema({
@@ -18,6 +18,6 @@ const optionSetSchema = new Schema({
   versionKey: false
 });
 
-const OptionSet = mongoose.model('OptionSet', optionSetSchema);
+const OptionSet = mongoose.model("OptionSet", optionSetSchema);
 
 module.exports = OptionSet;

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const configSchema = new mongoose.Schema({
   shopId: { type: mongoose.Types.ObjectId, required: true },
@@ -10,6 +10,6 @@ const configSchema = new mongoose.Schema({
   versionKey: false
 });
 
-const Config = mongoose.model('Config', configSchema);
+const Config = mongoose.model("Config", configSchema);
 
 module.exports = Config;

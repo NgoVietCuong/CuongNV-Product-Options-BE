@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const optionSchema = new Schema({
@@ -17,7 +17,7 @@ const optionSchema = new Schema({
   versionKey: false
 });
 
-const Option = mongoose.model('Option', optionSchema);
+const Option = mongoose.model("Option", optionSchema);
 
 module.exports = Option;
 
