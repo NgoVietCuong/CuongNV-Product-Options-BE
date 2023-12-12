@@ -15,7 +15,7 @@ async function createShop(req, res) {
       response.payload = shop ;
     }
   } catch (e) {
-    console.log('Error', e)
+    console.log("Error", e)
   } finally {
     res.send(response);
   }
@@ -37,10 +37,9 @@ async function findShop(req, res) {
     } else {
       response.statusCode = 404;
       response.message = "Shop Not Found";
-      response.payload = null;
     }
   } catch (e) {
-    console.log('Error', e);
+    console.log("Error", e);
   } finally {
     res.send(response);
   }
@@ -51,7 +50,7 @@ async function updateShop(req, res) {
     statusCode: 500,
     message: "Internal Server Error"
   }
-  const { shopDomain, accessToken } = req.shopDomain;
+  const { shopDomain, accessToken } = req;
 
   try {
     const shop = await shopService.update(shopDomain, { accessToken });
@@ -61,7 +60,7 @@ async function updateShop(req, res) {
       response.payload = shop;
     }
   } catch (e) {
-    console.log('Error', e);
+    console.log("Error", e);
   } finally {
     res.send(response);
   }

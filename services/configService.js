@@ -5,12 +5,12 @@ function create(data) {
   return config.save();
 }
 
-function update() {
-
+function update(shopId, data) {
+  return configModel.updateOne({ shopId: shopId }, data);
 }
 
-function findOne() {
-
+function findOne(shopId) {
+  return configModel.findOne({ shopId: shopId}).lean().exec();
 }
 
 module.exports = {

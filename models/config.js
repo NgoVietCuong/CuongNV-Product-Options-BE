@@ -6,7 +6,7 @@ const configSchema = new mongoose.Schema({
   editInCart: { type: Boolean, default: false },
   priceAddOns: { type: Boolean, default: false }
 }, {
-  timestamps: false,
+  timestamps: true,
   versionKey: false
 });
 
