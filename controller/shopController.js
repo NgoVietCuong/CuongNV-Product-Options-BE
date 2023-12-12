@@ -1,34 +1,74 @@
 const shopService = require("../services/shopService");
 
 async function createShop(req, res) {
+  const response = {
+    statusCode: 500,
+    message: "Internal Server Error"
+  }
   const { shopDomain, accessToken } = req;
 
   try {
     const shop = await shopService.create({ shopDomain, accessToken });
-    res.status(201).json(shop);
+    if (shop && shop._id) {
+      response.statusCode = 201;
+      response.message = "Created";
+      response.payload = shop ;
+    }
   } catch (e) {
-    console.log('error', e)
-    res.status(500).send("Internal Server Error");
+    console.log('Error', e)
+  } finally {
+    res.send(response);
   }
 }
 
 async function findShop(req, res) {
+  const response = {
+    statusCode: 500,
+    message: "Internal Server Error"
+  }
   const { shopDomain } = req;
 
   try {
     const shop = await shopService.findByDomain(shopDomain);
     if (shop && shop._id) {
-      res.status(200).json(shop);
+      response.statusCode = 200;
+      response.message = "OK";
+      response.payload = {...shop};
     } else {
-      res.status(404).send(null);
+      response.statusCode = 404;
+      response.message = "Shop Not Found";
+      response.payload = null;
     }
   } catch (e) {
-    res.status(500).send("Internal Server Error")
+    console.log('Error', e);
+  } finally {
+    res.send(response);
   }
 }
 
+async function updateShop(req, res) {
+  const response = {
+    statusCode: 500,
+    message: "Internal Server Error"
+  }
+  const { shopDomain, accessToken } = req.shopDomain;
+
+  try {
+    const shop = await shopService.update(shopDomain, { accessToken });
+    if (shop) {
+      response.statusCode = 200;
+      response.message = "OK";
+      response.payload = shop;
+    }
+  } catch (e) {
+    console.log('Error', e);
+  } finally {
+    res.send(response);
+  }
+}
 
 module.exports = {
+  findShop,
   createShop,
-  findShop
+  updateShop,
 }

@@ -6,14 +6,15 @@ function create(data) {
 }
 
 function update(domain, data) {
-  
+  return shopModel.updateOne({ shopDomain: domain }, data);
 }
 
 function findByDomain(domain) {
-  return shopModel.findOne({ shopDomain: domain}).exec();
+  return shopModel.findOne({ shopDomain: domain}).lean().exec();
 }
 
 module.exports = {
   create,
+  update,
   findByDomain
 }
