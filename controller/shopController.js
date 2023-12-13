@@ -1,4 +1,6 @@
 const shopService = require("../services/shopService");
+const shopGraphQL = require("../graphql/shopGraphQL");
+const { API_VERSION } = process.env;
 
 async function createShop(req, res) {
   const response = {
@@ -26,14 +28,15 @@ async function findShop(req, res) {
     statusCode: 500,
     message: "Internal Server Error"
   }
-  const { shopDomain } = req;
+  const { shopDomain, accessToken } = req;
 
   try {
     const shop = await shopService.findByDomain(shopDomain);
     if (shop && shop._id) {
+      const shopInfo = await shopGraphQL.getShopInfo(shopDomain, accessToken, API_VERSION);
       response.statusCode = 200;
       response.message = "OK";
-      response.payload = {...shop};
+      response.payload = {...shop, ...shopInfo};
     } else {
       response.statusCode = 404;
       response.message = "Shop Not Found";
