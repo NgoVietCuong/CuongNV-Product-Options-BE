@@ -1,4 +1,4 @@
-const axios = require("axios");
+const { graphqlRequest } = request("../utils/axiosRequest");
 
 async function getProductList(domain, accessToken, apiVersion) {
   const query = `
@@ -18,31 +18,34 @@ async function getProductList(domain, accessToken, apiVersion) {
     }
   `;
 
-  const response = await axios({
-    url: `https://${domain}/admin/api/${apiVersion}/graphql.json`,
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Shopify-Access-Token": accessToken
-    },
-    data: { query: query }
-  });
-
-  const responseData = response.data;
-  console.log('test', responseData);
+  const response = graphqlRequest(domain, accessToken, apiVersion, query);
+  const responseData = response.data.data.products.edges;
   return responseData;
 }
 
 async function getCollections(domain, accessToken, apiVersion) {
+  const query =  `
+    query {
+      collections(first: 250) {
+        edges {
+          node {
+            id
+            title
+            image {
+              url
+            }
+          }
+        }
+      }
+    }
+  `;
 
-}
-
-async function getProductTags(domain, accessToken, apiVersion) {
-
+  const response = graphqlRequest(domain, accessToken, apiVersion, query);
+  const responseData = response.data.data.collections.edges;
+  return responseData;
 }
 
 module.exports = {
   getProductList,
-  getCollections,
-  getProductTags
+  getCollections
 }
