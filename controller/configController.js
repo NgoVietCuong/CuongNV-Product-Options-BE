@@ -58,11 +58,11 @@ async function updateConfig(req, res) {
     message: "Internal Server Error"
   }
 
-  const { shopId, ...data } = req.body;
+  const { shopId, config } = req.body;
   
   try {
-    const config = await configService.update(shopId, data);
-    if (config) {
+    const updatedConfig = await configService.update(shopId, config);
+    if (updatedConfig) {
       response.statusCode = 200;
       response.message = "OK";
     }

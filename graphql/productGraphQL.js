@@ -1,4 +1,4 @@
-const { graphqlRequest } = request("../utils/axiosRequest");
+const { graphqlRequest } = require("../utils/axiosRequest");
 
 async function getProductList(domain, accessToken, apiVersion) {
   const query = `
@@ -18,8 +18,8 @@ async function getProductList(domain, accessToken, apiVersion) {
     }
   `;
 
-  const response = graphqlRequest(domain, accessToken, apiVersion, query);
-  const responseData = response.data.data.products.edges;
+  const response = await graphqlRequest(domain, accessToken, apiVersion, query);
+  const responseData = response.data.data.products.edges.map(item => item.node);
   return responseData;
 }
 
@@ -40,8 +40,8 @@ async function getCollections(domain, accessToken, apiVersion) {
     }
   `;
 
-  const response = graphqlRequest(domain, accessToken, apiVersion, query);
-  const responseData = response.data.data.collections.edges;
+  const response = await graphqlRequest(domain, accessToken, apiVersion, query);
+  const responseData = response.data.data.collections.edges.map(item => item.node);
   return responseData;
 }
 

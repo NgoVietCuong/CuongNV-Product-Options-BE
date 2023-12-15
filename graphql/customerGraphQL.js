@@ -1,4 +1,4 @@
-const axios = require("axios");
+const { graphqlRequest } = require("../utils/axiosRequest");
 
 async function getCustomerList(domain, accessToken, apiVersion) {
   const query = `
@@ -15,17 +15,8 @@ async function getCustomerList(domain, accessToken, apiVersion) {
     }
   `;
 
-  const response = await axios({
-    url: `https://${domain}/admin/api/${apiVersion}/graphql.json`,
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Shopify-Access-Token": accessToken
-    },
-    data: { query: query }
-  });
-
-  const responseData = response.data.data.customers.edges;
+  const response = await graphqlRequest(domain, accessToken, apiVersion, query);
+  const responseData = response.data.data.customers.edges.map(item => item.node);
   return responseData;
 }
 

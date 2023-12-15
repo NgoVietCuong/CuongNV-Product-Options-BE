@@ -1,7 +1,7 @@
 const axios = require("axios");
 
-async function graphqlRequest(domain, accessToken, apiVersion, query) {
-  const response = await axios({
+function graphqlRequest(domain, accessToken, apiVersion, query) {
+  return axios({
     url: `https://${domain}/admin/api/${apiVersion}/graphql.json`,
     method: "post",
     headers: {
@@ -10,8 +10,6 @@ async function graphqlRequest(domain, accessToken, apiVersion, query) {
     },
     data: { query: query }
   });
-
-  return response.data;
 }
 
 module.exports = {

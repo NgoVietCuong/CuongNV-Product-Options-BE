@@ -1,4 +1,4 @@
-const axios = require("axios");
+const { graphqlRequest } = require("../utils/axiosRequest");
 
 async function getShopInfo(domain, accessToken, apiVersion) {
   const query = `
@@ -10,16 +10,7 @@ async function getShopInfo(domain, accessToken, apiVersion) {
     }
   `;
 
-  const response = await axios({
-    url: `https://${domain}/admin/api/${apiVersion}/graphql.json`,
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Shopify-Access-Token": accessToken
-    },
-    data: { query: query }
-  });
-
+  const response = await graphqlRequest(domain, accessToken, apiVersion, query);
   const responseData = response.data.data.shop;
   return responseData;
 }
@@ -37,17 +28,8 @@ async function getProductTags(domain, accessToken, apiVersion) {
     }
   `;
 
-  const response = await axios({
-    url: `https://${domain}/admin/api/${apiVersion}/graphql.json`,
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Shopify-Access-Token": accessToken
-    },
-    data: { query: query }
-  });
-
-  const responseData = response.data.data.shop.edges;
+  const response = await graphqlRequest(domain, accessToken, apiVersion, query);
+  const responseData = response.data.data.shop.productTags.edges.map(item => item.node);
   return responseData;
 }
 
@@ -64,17 +46,8 @@ async function getCustomerTags(domain, accessToken, apiVersion) {
     }
   `;
 
-  const response = await axios({
-    url: `https://${domain}/admin/api/${apiVersion}/graphql.json`,
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Shopify-Access-Token": accessToken
-    },
-    data: { query: query }
-  });
-
-  const responseData = response.data.data.shop.edges;
+  const response = await graphqlRequest(domain, accessToken, apiVersion, query);
+  const responseData = response.data.data.shop.customerTags.edges.map(item => item.node);
   return responseData;
 }
 

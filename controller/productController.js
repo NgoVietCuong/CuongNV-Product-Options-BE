@@ -11,11 +11,11 @@ async function getStoreProducts(req, res) {
   const { shopDomain, accessToken } = req;
 
   try {
-    const productList = await productGraphQL.getProductList(shopDomain, accessToken, API_VERSION);
-    if (productList) {
+    const products = await productGraphQL.getProductList(shopDomain, accessToken, API_VERSION);
+    if (products) {
       response.statusCode = 200;
       response.message = "OK";
-      response.payload = productList;
+      response.payload = products;
     }
   } catch (e) {
     console.log("Error", e);
@@ -33,11 +33,11 @@ async function getStoreCollections(req, res) {
   const { shopDomain, accessToken } = req;
 
   try {
-    const productCollections = await productGraphQL.getCollections(shopDomain, accessToken, API_VERSION);
-    if (productCollections) {
+    const collections = await productGraphQL.getCollections(shopDomain, accessToken, API_VERSION);
+    if (collections) {
       response.statusCode = 200;
       response.message = "OK";
-      response.payload = productCollections;
+      response.payload = collections;
     }
   } catch (e) {
     console.log("Error", e);
