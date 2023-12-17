@@ -62,9 +62,10 @@ async function updateConfig(req, res) {
   
   try {
     const updatedConfig = await configService.update(shopId, config);
-    if (updatedConfig) {
+    if (updatedConfig && updatedConfig._id) {
       response.statusCode = 200;
       response.message = "OK";
+      response.payload = updatedConfig;
     }
   } catch (e) {
     console.log("Error", e);

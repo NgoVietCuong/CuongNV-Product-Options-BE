@@ -6,7 +6,7 @@ function create(data) {
 }
 
 function update(shopId, data) {
-  return configModel.updateOne({ shopId: shopId }, data);
+  return configModel.findOneAndUpdate({ shopId: shopId }, data, { new: true });
 }
 
 function findOne(shopId) {
