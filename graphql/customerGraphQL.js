@@ -16,6 +16,7 @@ async function getCustomerList(domain, accessToken, apiVersion) {
   `;
 
   const response = await graphqlRequest(domain, accessToken, apiVersion, query);
+  console.log("customer", response.data.extensions.cost)
   const responseData = response.data.data.customers.edges.map(item => item.node);
   return responseData;
 }
