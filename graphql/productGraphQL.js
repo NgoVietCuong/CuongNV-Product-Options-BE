@@ -21,7 +21,14 @@ async function getProductList(domain, accessToken, apiVersion) {
   const response = await graphqlRequest(domain, accessToken, apiVersion, query);
   console.log("products", response.data.extensions.cost)
   const responseData = response.data.data.products.edges.map(item => item.node);
-  return responseData;
+  const productData = responseData.map(item => {
+    let idArray = item.id.split("/");
+    return {
+      ...item,
+      id: idArray.pop()
+    }
+  })
+  return productData;
 }
 
 async function getCollections(domain, accessToken, apiVersion) {
@@ -44,7 +51,14 @@ async function getCollections(domain, accessToken, apiVersion) {
   const response = await graphqlRequest(domain, accessToken, apiVersion, query);
   console.log("collections", response.data.extensions.cost)
   const responseData = response.data.data.collections.edges.map(item => item.node);
-  return responseData;
+  const collectionData = responseData.map(item => {
+    let idArray = item.id.split("/");
+    return {
+      ...item,
+      id: idArray.pop()
+    }
+  })
+  return collectionData;
 }
 
 module.exports = {
