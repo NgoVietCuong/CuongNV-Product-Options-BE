@@ -8,7 +8,6 @@ async function getProductList(domain, accessToken, apiVersion) {
           node {
             id
             title
-            handle,
             featuredImage {
               url
             }
