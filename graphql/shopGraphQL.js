@@ -29,8 +29,7 @@ async function getProductTags(domain, accessToken, apiVersion) {
   `;
 
   const response = await graphqlRequest(domain, accessToken, apiVersion, query);
-  console.log("productTags", response.data.extensions.cost)
-  const responseData = response.data.data.shop.productTags.edges.map(item => item.node);
+  const responseData = response.data.data.shop.productTags.edges.map(item => ({ id: item.node}));
   return responseData;
 }
 
@@ -48,8 +47,7 @@ async function getCustomerTags(domain, accessToken, apiVersion) {
   `;
 
   const response = await graphqlRequest(domain, accessToken, apiVersion, query);
-  console.log("customerTags", response.data.extensions.cost)
-  const responseData = response.data.data.shop.customerTags.edges.map(item => item.node);
+  const responseData = response.data.data.shop.customerTags.edges.map(item => ({ id: item.node}));
   return responseData;
 }
 
