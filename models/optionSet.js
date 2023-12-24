@@ -9,7 +9,7 @@ const optionSetSchema = new Schema({
   applyToCustomer: { type: Number, enum: [0, 1, 2, 3, 4] },
   customerIds: { type: [Number] },
   customerTags: { type: [String] },
-  applyToProduct: { type: Number, enum: [0, 1, 2, 3, 4] },
+  applyToProduct: { type: Number, enum: [0, 1, 2, 3] },
   productIds: { type: [Number] },
   productCollections: { type: [Number] },
   productTags: { type: [String] }
