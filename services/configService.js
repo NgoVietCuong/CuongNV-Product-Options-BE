@@ -10,7 +10,7 @@ function update(shopId, data) {
 }
 
 function findOne(shopId) {
-  return configModel.findOne({ shopId: shopId}).lean().exec();
+  return configModel.findOne({ shopId: shopId }).lean().exec();
 }
 
 module.exports = {

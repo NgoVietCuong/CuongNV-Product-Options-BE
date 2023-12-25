@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { createOptionSet } = require("../controller/optionSetController");
+const { findAllOptionSets, createOptionSet } = require("../controller/optionSetController");
 
+router.get("/", findAllOptionSets);
 router.post("/", createOptionSet);
 
 module.exports = router;

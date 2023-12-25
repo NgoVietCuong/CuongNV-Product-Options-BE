@@ -12,7 +12,8 @@ const optionSetSchema = new Schema({
   applyToProduct: { type: Number, enum: [0, 1, 2, 3] },
   productIds: { type: [Number] },
   productCollections: { type: [Number] },
-  productTags: { type: [String] }
+  productTags: { type: [String] },
+  options: [{ type: mongoose.Types.ObjectId, ref: "Option"}]
 }, {
   timestamps: true,
   versionKey: false

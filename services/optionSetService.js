@@ -5,6 +5,11 @@ function create(data) {
   return optionSet.save();
 }
 
+function findAll(shopId) {
+  return optionSetModel.find({ shopId: shopId }).sort({ updatedAt: -1 }).exec();
+}
+
 module.exports = {
-  create
+  create,
+  findAll
 }
