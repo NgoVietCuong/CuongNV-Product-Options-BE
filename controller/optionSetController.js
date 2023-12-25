@@ -1,4 +1,5 @@
 const shopService = require("../services/shopService");
+const optionService = require("../services/optionService");
 const optionSetService = require("../services/optionSetService");
 
 async function findOptionSet() {
@@ -37,11 +38,12 @@ async function createOptionSet(req, res) {
     message: "Internal Server Error"
   }
 
-  const data = req.body;
+  const { options, ...data } = req.body;
 
   try {
     const optionSet = await optionSetService.create(data);
     if (optionSet && optionSet._id) {
+      await optionService.bulkCreate(options, optionSet._id);
       response.statusCode = 201;
       response.message = "Created";
       response.payload = optionSet;
