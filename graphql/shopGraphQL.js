@@ -11,7 +11,7 @@ async function getShopInfo(domain, accessToken, apiVersion) {
   `;
 
   const response = await graphqlRequest(domain, accessToken, apiVersion, query);
-  const responseData = response.data.data.shop;
+  const responseData = response.data.shop;
   return responseData;
 }
 
@@ -29,7 +29,7 @@ async function getProductTags(domain, accessToken, apiVersion) {
   `;
 
   const response = await graphqlRequest(domain, accessToken, apiVersion, query);
-  const responseData = response.data.data.shop.productTags.edges.map(item => ({ id: item.node}));
+  const responseData = response.data.shop.productTags.edges.map(item => ({ id: item.node}));
   return responseData;
 }
 
@@ -47,7 +47,7 @@ async function getCustomerTags(domain, accessToken, apiVersion) {
   `;
 
   const response = await graphqlRequest(domain, accessToken, apiVersion, query);
-  const responseData = response.data.data.shop.customerTags.edges.map(item => ({ id: item.node}));
+  const responseData = response.data.shop.customerTags.edges.map(item => ({ id: item.node}));
   return responseData;
 }
 

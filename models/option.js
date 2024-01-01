@@ -7,11 +7,11 @@ const optionSchema = new Schema({
   order: { type: Number, required: true },
   textBox: { priceAddOn: Number },
   numberField: { priceAddOn: Number },
-  checkbox: [{ _id: false, optionValue: { type: String }, priceAddOn: { type: Number, default: null } }],
-  radioButton: [{ _id: false, optionValue: { type: String }, priceAddOn: { type: Number, default: null } }],
-  dropdownMenu: [{ _id: false, optionValue: { type: String }, priceAddOn: { type: Number, default: null } }],
-  // swatch: [{ _id: false, swatchType: { type: Number, default: 0, enum: [0, 1]}, optionValue: { type: String, required: true }, priceAddOn: { type: Number, default: null } }],
-  button: [{ _id: false, optionValue: { type: String }, priceAddOn: { type: Number, default: null } }],
+  checkbox: [{ _id: false, optionValue: { type: String }, priceAddOn: { type: Number, default: 0 } }],
+  radioButton: [{ _id: false, optionValue: { type: String }, priceAddOn: { type: Number, default: 0 } }],
+  dropdownMenu: [{ _id: false, optionValue: { type: String }, priceAddOn: { type: Number, default: 0 } }],
+  // swatch: [{ _id: false, swatchType: { type: Number, default: 0, enum: [0, 1]}, optionValue: { type: String, required: true }, priceAddOn: { type: Number, default: 0 } }],
+  button: [{ _id: false, optionValue: { type: String }, priceAddOn: { type: Number, default: 0 } }],
 }, {
   timestamps: false,
   versionKey: false

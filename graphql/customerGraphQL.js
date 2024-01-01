@@ -16,7 +16,7 @@ async function getCustomerList(domain, accessToken, apiVersion) {
   `;
 
   const response = await graphqlRequest(domain, accessToken, apiVersion, query);
-  const responseData = response.data.data.customers.edges.map(item => item.node);
+  const responseData = response.data.customers.edges.map(item => item.node);
   const customerData = responseData.map(item => {
     let idArray = item.id.split("/");
     return {
