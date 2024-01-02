@@ -90,7 +90,6 @@ async function updateOptionSet(req, res) {
 
   const id = req.params.id;
   const { options, ...data } = req.body;
-  console.log('options', options);
 
   try {
     const optionSet = await optionSetService.update(id, data);
@@ -108,17 +107,53 @@ async function updateOptionSet(req, res) {
   }
 }
 
-async function duplicateOptionSets() {
+async function updateOptionSets(req, res) {
+  const response = {
+    statusCode: 500,
+    message: "Internal Server Error"
+  }
 
+  const { ids, ...data } = req.body;
+
+  try {
+    const updatedOptionSets = await optionSetService.updateMany(ids, data);
+    if (updatedOptionSets) {
+      response.statusCode = 200;
+      response.message = "Updated";
+    }
+  } catch (e) {
+    console.log("Error", e);
+  } finally {
+    res.send(response);
+  }
 }
 
-async function deleteOptionSets() {
+async function deleteOptionSets(req, res) {
+  const response = {
+    statusCode: 500,
+    message: "Internal Server Error"
+  }
 
+  const { ids } = req.body;
+
+  try {
+    const deletedOptionSets = await optionSetService.deleteMany(ids);
+    if (deletedOptionSets) {
+      response.statusCode = 200;
+      response.message = "Updated";
+    }
+  } catch (e) {
+    console.log("Error", e);
+  } finally {
+    res.send(response);
+  }
 }
 
 module.exports = {
   findOptionSet,
   findAllOptionSets,
   createOptionSet,
-  updateOptionSet
+  updateOptionSet,
+  updateOptionSets,
+  deleteOptionSets
 }

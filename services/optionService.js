@@ -16,7 +16,6 @@ async function bulkCreate(data, optionSetId) {
 async function bulkUpdate(data, optionSetId) {
   const beforeOptionSet = await optionSetModel.findByIdAndUpdate(optionSetId, { options: [] });
   const optionIds = beforeOptionSet.options;
-  console.log("optionIds", optionIds)
   await optionModel.deleteMany({
     _id: { $in: optionIds }
   });

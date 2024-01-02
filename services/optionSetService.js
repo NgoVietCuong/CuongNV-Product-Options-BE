@@ -1,4 +1,5 @@
 const optionSetModel = require("../models/optionSet");
+const optionModel = require("../models/option");
 
 function create(data) {
   const optionSet = new optionSetModel(data);
@@ -7,6 +8,14 @@ function create(data) {
 
 function update(id, data) {
   return optionSetModel.findByIdAndUpdate(id, data, { new: true });
+}
+
+function updateMany(ids, data) {
+  return optionSetModel.updateMany({ _id: { $in: ids }}, data);
+}
+
+function deleteMany(ids) {
+  
 }
 
 function findAll(shopId) {
@@ -24,6 +33,8 @@ function findById(id) {
 module.exports = {
   create,
   update,
+  updateMany,
+  deleteMany,
   findAll,
   findById,
   findAllWithOptions
