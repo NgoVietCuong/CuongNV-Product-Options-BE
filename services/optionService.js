@@ -22,7 +22,12 @@ async function bulkUpdate(data, optionSetId) {
   await bulkCreate(data, optionSetId);
 }
 
+function bulkDelete(ids) {
+  return optionModel.deleteMany({ optionSetId: { $in: ids }});
+}
+
 module.exports = {
   bulkCreate,
-  bulkUpdate
+  bulkUpdate,
+  bulkDelete
 }

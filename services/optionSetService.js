@@ -1,5 +1,4 @@
 const optionSetModel = require("../models/optionSet");
-const optionModel = require("../models/option");
 
 function create(data) {
   const optionSet = new optionSetModel(data);
@@ -15,7 +14,7 @@ function updateMany(ids, data) {
 }
 
 function deleteMany(ids) {
-  
+  return optionSetModel.deleteMany({ _id: { $in: ids }});
 }
 
 function findAll(shopId) {

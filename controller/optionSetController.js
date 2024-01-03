@@ -71,7 +71,8 @@ async function createOptionSet(req, res) {
   try {
     const optionSet = await optionSetService.create(data);
     if (optionSet && optionSet._id) {
-      await optionService.bulkCreate(options, optionSet._id);
+      const newOptions = options.map(option => { return {...option, optionSetId: optionSet._id} });
+      await optionService.bulkCreate(newOptions, optionSet._id);
       response.statusCode = 201;
       response.message = "Created";
     }
@@ -95,7 +96,8 @@ async function updateOptionSet(req, res) {
     const optionSet = await optionSetService.update(id, data);
     if (optionSet && optionSet._id) {
       if (options && options.length) {
-        await optionService.bulkUpdate(options, optionSet);
+        const newOptions = options.map(option => { return {...option, optionSetId: optionSet._id} });
+        await optionService.bulkUpdate(newOptions, optionSet);
       }
       response.statusCode = 200;
       response.message = "Updated";
@@ -137,11 +139,10 @@ async function deleteOptionSets(req, res) {
   const { ids } = req.body;
 
   try {
-    const deletedOptionSets = await optionSetService.deleteMany(ids);
-    if (deletedOptionSets) {
-      response.statusCode = 200;
-      response.message = "Updated";
-    }
+    await optionSetService.deleteMany(ids);
+    await optionService.bulkDelete(ids);
+    response.statusCode = 200;
+    response.message = "Updated";
   } catch (e) {
     console.log("Error", e);
   } finally {
