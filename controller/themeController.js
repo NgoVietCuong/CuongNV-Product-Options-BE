@@ -1,4 +1,3 @@
-const fs = require("fs");
 const themeService = require("../services/themeService");
 const { API_VERSION } = process.env;
 

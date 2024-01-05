@@ -22,7 +22,7 @@ async function updateThemeContent(shopDomain, accessToken, apiVersion, themeId) 
         value: newContent
       }
     }
-    await updateContentRequest(shopDomain, accessToken, apiVersion, themeId, data);
+    updateContentRequest(shopDomain, accessToken, apiVersion, themeId, data);
   }
 }
 
