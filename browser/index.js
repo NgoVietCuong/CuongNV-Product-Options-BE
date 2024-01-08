@@ -4,7 +4,8 @@ import { generateOptionSet } from "./product";
 (function() {
   if (document.querySelector("#hoa-po-store-data")) {
     const storeData = JSON.parse(document.querySelector("#hoa-po-store-data").innerHTML);
-    storeData.shop.money_format.replace(/<\/?[^>]+>/gi, "");
+    HOA_PO.shop={}
+    HOA_PO.shop.money_format = storeData.shop.money_format.replace(/<\/?[^>]+>/gi, "");
     console.log("check", HOA_PO);
 
     setTimeout(() => {

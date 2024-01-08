@@ -1,4 +1,5 @@
 import { getTextBoxHtml, getNumberFieldHtml, getDropdownMenuHtml, getCheckboxHtml, getRadioButtonHtml, getSwatchHtml, getButtonHtml } from "./template";
+import { addMoneyWithCurrencyFormat } from "./currency";
 
 function getOptionSelector(optionType, optionId) {
   const typeMap = {
@@ -17,10 +18,11 @@ function getOptionSelector(optionType, optionId) {
 function displayPriceAddOns(option, element, label) {
   if (option.type === 0) {
     const extraPrice = option.textBox.priceAddOn;
-    console.log('extraPrice', extraPrice)
     if (label.querySelector(".po-extra-price")) {
-      label.querySelector(".po-extra-price").parentNode.removeChild(label.querySelector(".po-extra-price"))
+      label.querySelector(".po-extra-price").parentNode.removeChild(label.querySelector(".po-extra-price"));
     }
+    console.log('extraPrice', addMoneyWithCurrencyFormat("0", extraPrice))
+    // let r = `<span class="po-extra-price">(+${addMoneyWithCurrencyFormat("0", extraPrice)})</span>`
   }
 
 }
