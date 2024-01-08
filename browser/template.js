@@ -2,7 +2,7 @@ export function getTextBoxHtml(option) {
   return `
     <label class="po-label" for="po_text_box${option._id}" id="po_label${option._id}">${option.label}</label>
     <div class="po-option--container">
-      <input class="po-option--type-text" type="text" name="po_text_box${option._id} id="po_text_box${option._id}">
+      <input class="po-option--type-text" type="text" name="po_text_box${option._id}" id="po_text_box${option._id}">
     </div>
   `;
 }
@@ -11,7 +11,7 @@ export function getNumberFieldHtml(option) {
   return `
     <label class="po-label" for="po_number_field${option._id}" id="po_label${option._id}">${option.label}</label>
     <div class="po-option--container">
-      <input class="po-option--type-number" type="number" name="po_number_field${option._id} id="po_number_field${option._id}">
+      <input class="po-option--type-number" type="number" name="po_number_field${option._id}" id="po_number_field${option._id}">
     </div>
   `;
 }
@@ -26,6 +26,10 @@ export function getDropdownMenuHtml(option) {
           return `<option value="${element.optionValue}" name="po_dropdown${option._id}" id="po_dropdown${index}">${element.optionValue}</option>`
         }).join("")}
       </select>
+      <svg aria-hidden="true" focusable="false" class="icon icon-caret" viewBox="0 0 10 6">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+        </path>
+      </svg>
     </div>
   `;
 }
@@ -66,16 +70,15 @@ export function getRadioButtonHtml(option) {
 
 
 function getSwatchDisplay(swatch) {
-  console.log('swatch', swatch);
-  let testHtml = "";
+  let swatchHtml = "";
   if (swatch.swatchType === 0 && swatch.colorValue) {
-    testHtml += `<div class="po-option__color-value" style="background-color: #${swatch.colorValue}; display: block"></div>`
+    swatchHtml += `<div class="po-option__color-value" style="background-color: #${swatch.colorValue}; display: block"></div>`
   } else if (swatch.swatchType === 1) {
-    testHtml += `<div class="po-option__image-value" style="background-image: url(${swatch.imageValue}); display: block"></div>`
+    swatchHtml += `<div class="po-option__image-value" style="background-image: url(${swatch.imageValue}); display: block"></div>`
   } else {
-    testHtml += `<div class="po-option__color-value" style="background-color: #ffffff; display: block"></div>`
+    swatchHtml += `<div class="po-option__color-value" style="background-color: #ffffff; display: block"></div>`
   }
-  return testHtml;
+  return swatchHtml;
 }
 
 
