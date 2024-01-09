@@ -1,9 +1,7 @@
 export function addMoneyWithCurrencyFormat(o, n) {
-  let i = "";
-  let r = /\{\{\s*(\w+)\s*\}\}/;
-  let a = HOA_PO.shop.money_format;
-
-  console.log('r', r)
+  let money = "";
+  let regexPattern = /\{\{\s*(\w+)\s*\}\}/;
+  let moneyFormat = HOA_PO.shop.money_format;
 
   function c(e, t) {
     return 0 === e ? t : e
@@ -18,35 +16,35 @@ export function addMoneyWithCurrencyFormat(o, n) {
     let r = (e = (Number(e) + Number(t))
             .toFixed(o))
         .split(".");
-    return r[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + n) + (r[1] ? i + r[1] : "")
+    return r[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + n) + (r[1] ? i + r[1] : "");
   }
 
-  switch (a.match(r)[1]) {
+  switch (moneyFormat.match(regexPattern)[1]) {
     case "amount":
         "INR" == Shopify.currency.active && ("string" == typeof o && 0 == o.indexOf(".") && (o = o.replace(".", "")),
         "string" == typeof n && 0 == n.indexOf(".") && (n = n.replace(".", "")));
-        i = formatMoney(o, n, 2);
+        money = formatMoney(o, n, 2);
         break;
     case "amount_no_decimals":
-        i = formatMoney(o, n, 0);
+        money = formatMoney(o, n, 0);
         break;
     case "amount_with_comma_separator":
         "string" == typeof o && o.includes(",") && (o = o.replace(/\./g, "")
             .replace(",", ".")),
         "string" == typeof n && (n = n.replace(/\./g, "")
             .replace(",", "."));
-        i = formatMoney(o, n, 2, ".", ",");
+        money = formatMoney(o, n, 2, ".", ",");
         break;
     case "amount_no_decimals_with_comma_separator":
         "string" == typeof o && (o = o.replace(/\./g, "")),
         "string" == typeof n && (n = n.replace(/\./g, ""));
-        i = formatMoney(o, n, 0, ".", ",");
+        money = formatMoney(o, n, 0, ".", ",");
         break;
     case "amount_with_apostrophe_separator":
         "string" == typeof o && (o = o.replace(/\'/g, "")),
-            "string" == typeof n && (n = n.replace(/\'/g, "")),
-        i = formatMoney(o, n, 2, "'", ".");
+        "string" == typeof n && (n = n.replace(/\'/g, "")),
+        money = formatMoney(o, n, 2, "'", ".");
     }
 
-    return a.replace(r, i);
+    return moneyFormat.replace(regexPattern, money);
 }
