@@ -185,10 +185,6 @@ function getOptionHtml(optionSet) {
   return optionHtml;
 }
 
-function getSelectedOptions(optionset) {
-
-}
-
 function handleAddToCart(optionSet, product) {
   const addToCartButton = document.querySelector('form[action*="/cart/add"] button[type="submit"]');
   addToCartButton.addEventListener("click", (e) => {
@@ -256,16 +252,21 @@ function handleAddToCart(optionSet, product) {
       }
     });
 
-    let variants = [];
-    const variantSelects = document.querySelectorAll('variant-selects select');
-    variantSelects.forEach(variant => {
-      variants.push(variant.value);
-    });
+    let variantId;
+    if (product.variants.length > 1) {
+      let variants = [];
+      const variantSelects = document.querySelectorAll('variant-selects select');
+      variantSelects.forEach(variant => {
+        variants.push(variant.value);
+      });
+  
+      const variantTitle = variants.join(" / ");
+      variantId = product.variants.find(variant => variant.title === variantTitle).id;
+    } else {
+      variantId = product.variants[0].id;
+    }
 
-    const variantTitle = variants.join(" / ");
-    const variantId = product.variants.find(variant => variant.title === variantTitle).id;
     const properties = Object.fromEntries(selectedOptions);
-
     const quantitySelect = document.querySelector(".product-form__input.product-form__quantity .quantity__input");
     const quantity = parseInt(quantitySelect.value);
 
